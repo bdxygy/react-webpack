@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./styles/styles.scss";
 
 const App: React.FC = () => {
+  console.log(process.env.MODE, "mode")
   return (
     <Routes>
       <Route path="/">

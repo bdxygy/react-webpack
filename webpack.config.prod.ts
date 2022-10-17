@@ -1,18 +1,31 @@
-import webpackConfig, { devServer } from "./webpack.config";
+import webpackConfig from "./webpack.config";
 import { merge } from "webpack-merge";
 import { Configuration } from "webpack";
 import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
+import Dotenv from "dotenv-webpack";
 
 const CssOptions: MiniCssExtractPlugin.PluginOptions = {
   filename: "[name].[contenthash].css",
+  chunkFilename: "[id].css",
+  ignoreOrder: false,
+  linkType: "text/css"
 };
 
 const productionConfig = merge(webpackConfig, <Configuration>{
   mode: "production",
   devServer: undefined,
-  plugins: [new MiniCssExtractPlugin(CssOptions)],
+  plugins: [
+    new MiniCssExtractPlugin(CssOptions),
+    new Dotenv({
+      path: "./.env.prod",
+      allowEmptyValues: false,
+      systemvars: true,
+      silent: true,
+      defaults: false,
+    }),
+  ],
   module: {
     rules: [
       {
@@ -39,6 +52,17 @@ const productionConfig = merge(webpackConfig, <Configuration>{
         parallel: true,
       }),
     ],
+    splitChunks: {
+      chunks: "all",
+      minSize: 20000,
+      minRemainingSize: 0,
+      minChunks: 1,
+    },
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
 });
 
