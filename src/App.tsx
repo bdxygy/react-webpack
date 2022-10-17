@@ -3,13 +3,13 @@ import { Route, Routes } from "react-router-dom";
 import "./styles/styles.scss";
 
 const App: React.FC = () => {
-  console.log(process.env.MODE, "mode")
   return (
     <Routes>
       <Route path="/">
         <Route index element={<div>React App Activated!</div>} />
         <Route path="*" element={<div>Error!</div>} />
       </Route>
+      <Route path="*" element={<div>Error!</div>} />
     </Routes>
   );
 };

@@ -6,6 +6,9 @@ import App from "./App";
 const container = document.getElementById("root");
 const root = createRoot(container!);
 
+  
+console.log(process.env.MODE, "mode");
+
 root.render(
   <BrowserRouter>
     <App />
