@@ -1,2 +1,1 @@
-# ts-project
-# react
+# React Webpack @bdxygy
