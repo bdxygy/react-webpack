@@ -1,20 +1,7 @@
-import webpackConfig from "./webpack.config";
-import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import webpackConfig, { devServer } from "./webpack.config";
 import { merge } from "webpack-merge";
 import { Configuration } from "webpack";
 import Dotenv from "dotenv-webpack";
-
-import proxyConfiguration from "./proxy.config.json";
-
-import path from "path";
-
-export const devServer: DevServerConfiguration = {
-  port: 4567,
-  hot: true,
-  proxy: proxyConfiguration,
-  static: path.resolve(__dirname, "dev"),
-  historyApiFallback: true,
-};
 
 const productionConfig = merge(webpackConfig, <Configuration>{
   devServer,

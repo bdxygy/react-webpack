@@ -5,11 +5,7 @@ import "./styles/styles.scss";
 const App: React.FC = () => {
   return (
     <Routes>
-      <Route path="/">
-        <Route index element={<div>React App Activated!</div>} />
-        <Route path="*" element={<div>Error!</div>} />
-      </Route>
-      <Route path="*" element={<div>Error!</div>} />
+      <Route path="/" element={<h1>Hello Buddy!</h1>}/>
     </Routes>
   );
 };
