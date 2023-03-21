@@ -3,7 +3,6 @@ import { merge } from "webpack-merge";
 import { Configuration } from "webpack";
 import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import UglifyJsPlugin from "uglifyjs-webpack-plugin";
 import path from "path";
 import Dotenv from "dotenv-webpack";
 
@@ -43,10 +42,6 @@ const productionConfig = merge(webpackConfig, <Configuration>{
   optimization: {
     minimize: true,
     minimizer: [
-      new UglifyJsPlugin({
-        test: /\.(ts|js)(\?.*)?$/i,
-        exclude: /node_modules/,
-      }),
       new TerserPlugin({
         terserOptions: {
           format: {
