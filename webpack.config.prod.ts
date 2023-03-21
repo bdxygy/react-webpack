@@ -3,6 +3,7 @@ import { merge } from "webpack-merge";
 import { Configuration } from "webpack";
 import TerserPlugin from "terser-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import UglifyJsPlugin from "uglifyjs-webpack-plugin";
 import path from "path";
 import Dotenv from "dotenv-webpack";
 
@@ -42,6 +43,10 @@ const productionConfig = merge(webpackConfig, <Configuration>{
   optimization: {
     minimize: true,
     minimizer: [
+      new UglifyJsPlugin({
+        test: /\.(ts|js)(\?.*)?$/i,
+        exclude: /node_modules/,
+      }),
       new TerserPlugin({
         terserOptions: {
           format: {
@@ -52,27 +57,6 @@ const productionConfig = merge(webpackConfig, <Configuration>{
         parallel: true,
       }),
     ],
-    splitChunks: {
-      chunks: "async",
-      minSize: 20000,
-      minRemainingSize: 0,
-      minChunks: 1,
-      maxAsyncRequests: 30,
-      maxInitialRequests: 30,
-      enforceSizeThreshold: 50000,
-      cacheGroups: {
-        defaultVendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          reuseExistingChunk: true,
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          reuseExistingChunk: true,
-        },
-      },
-    },
   },
 });
 
